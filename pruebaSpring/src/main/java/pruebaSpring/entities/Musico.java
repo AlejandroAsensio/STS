@@ -1,7 +1,9 @@
 package pruebaSpring.entities;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-
+@Component
 public class Musico {
 	/*
 	 * private Trompeta trompeta;
@@ -9,15 +11,9 @@ public class Musico {
 	 * public Musico() { this.trompeta = new Trompeta(); } public void tocar() {
 	 * this.trompeta.calentar(); this.trompeta.sonar(); }
 	 */
+	@Autowired
 	private InstrumentoMusical instrumento;
 
-	public Musico() {
-
-		InstrumentoMusicalFactory imf = InstrumentoMusicalFactory.getIMF();
-		this.instrumento = imf.getInstrumento();
-
-//		this.instrumento = new TrompetaAdapter();
-	}
 
 	public void tocar() {
 		this.instrumento.tocar();

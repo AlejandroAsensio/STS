@@ -4,14 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TrompetaAdapter implements InstrumentoMusical{
+public class MusicoCutre {
 	
 	@Autowired
-	private Trompeta trompeta;
+	private Guitarra guitarra;
 
 
 	public void tocar() {
-		this.trompeta.calentar();
-		this.trompeta.sonar();
+		this.guitarra.rasgar();
 	}
 }
