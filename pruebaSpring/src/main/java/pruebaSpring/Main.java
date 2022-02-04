@@ -19,9 +19,9 @@ public class Main {
 		
 		ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
 
-		Musico mc = (Musico)context.getBean("musico");
+		Musico m = (Musico)context.getBean("musico");
 		
-		mc.tocar();
+		m.tocar();
 		
 //		MusicoCutre mc = new MusicoCutre();
 //		mc.tocar();

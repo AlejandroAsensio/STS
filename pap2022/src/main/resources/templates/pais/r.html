@@ -1,0 +1,27 @@
+<div class="container">
+<h1>PAÍSES</h1>
+
+<form action="/pais/c">
+	<input type="submit" value="Nuevo País"/>
+</form>
+<br/>
+<h3>Lista de países</h3>
+
+<table class="table table-striped">
+	<tr>
+		<th>
+			Nombre
+		</th>
+	</tr>
+	
+	<tr th:each="pais:${paises}">
+		<td th:text="${pais.nombre}"/>
+	</tr>
+</table>
+
+
+
+</h2>
+
+<br/>
+</div>

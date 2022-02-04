@@ -1,0 +1,27 @@
+<div class="container">
+<h1>PERSONAS</h1>
+
+<form action="/persona/c">
+	<input type="submit" value="Nueva Persona"/>
+</form>
+<br/>
+<h3>Lista de personas</h3>
+
+<table class="table table-striped">
+	<tr>
+		<th>
+			Nombre
+		</th>
+	</tr>
+	
+	<tr th:each="persona:${personas}">
+		<td th:text="${persona.nombre}"/>
+	</tr>
+</table>
+
+
+
+</h2>
+
+<br/>
+</div>

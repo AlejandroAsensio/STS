@@ -1,0 +1,27 @@
+<div class="container">
+<h1>AFICIONES</h1>
+
+<form action="/aficion/c">
+	<input type="submit" value="Nueva Afición"/>
+</form>
+<br/>
+<h3>Lista de aficiones</h3>
+
+<table class="table table-striped">
+	<tr>
+		<th>
+			Nombre
+		</th>
+	</tr>
+	
+	<tr th:each="aficion:${aficiones}">
+		<td th:text="${aficion.nombre}"/>
+	</tr>
+</table>
+
+
+
+</h2>
+
+<br/>
+</div>
