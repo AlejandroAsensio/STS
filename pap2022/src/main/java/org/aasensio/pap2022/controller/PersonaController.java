@@ -43,10 +43,12 @@ public class PersonaController {
 	}
 	
 	@PostMapping("/persona/c")
-	public String cPost(@RequestParam("nombre") String nombre) {
+	public String cPost(@RequestParam("nombre") String nombre,
+			@RequestParam("pwd") String pwd
+			) {
 		String returnLocation = "";
 		try {
-		personaRepository.save(new Persona(nombre));
+		personaRepository.save(new Persona(nombre,pwd));
 		returnLocation =  "redirect:/persona/r";
 		}
 		catch (Exception e) {
