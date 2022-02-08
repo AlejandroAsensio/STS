@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.aasensio.pap2022.entities.Pais;
 import org.aasensio.pap2022.entities.Persona;
+import org.aasensio.pap2022.exception.DangerException;
+import org.aasensio.pap2022.exception.PRG;
+import org.aasensio.pap2022.repository.AficionRepository;
 import org.aasensio.pap2022.repository.PaisRepository;
 import org.aasensio.pap2022.repository.PersonaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,43 +22,55 @@ public class PersonaController {
 	@Autowired
 	private PersonaRepository personaRepository;
 	
+	@Autowired
+	private PaisRepository paisRepository;
+	
+	@Autowired
+	private AficionRepository aficionRepository;
+	
 	@GetMapping("/persona/r")
 	public String r(
 			ModelMap m
-			) {
-		
-		List<Persona> personas = personaRepository.findAll();
-		
-//		m.put("saludo", "hola");
-		
+			) {	
+		List<Persona> personas = personaRepository.findAll();		
 		m.put("personas", personas);
-		
 		m.put("view", "persona/r");
-		
 		return "_t/frame";
 	}
 
 	@GetMapping("/persona/c")
 	public String c(ModelMap m) {
+		
+		m.put("paises", paisRepository.findAll());
+		m.put("aficiones", aficionRepository.findAll());
 		m.put("view", "persona/c");
 		
 		return "_t/frame";
 	}
 	
 	@PostMapping("/persona/c")
-	public String cPost(@RequestParam("nombre") String nombre,
-			@RequestParam("pwd") String pwd
-			) {
-		String returnLocation = "";
+	public String cPost(
+			@RequestParam("nombre") String nombre,
+			@RequestParam("pwd") String pwd,
+			@RequestParam("idPaisNace") Long idPaisNace,
+			@RequestParam(value="idAficion[]",required=false) List<Long> idsAficion
+			) throws DangerException {
+		
 		try {
-		personaRepository.save(new Persona(nombre,pwd));
-		returnLocation =  "redirect:/persona/r";
+		Persona persona = new Persona(nombre,pwd,paisRepository.getById(idPaisNace));
+		if(idsAficion !=null) {
+			for(Long idAficion : idsAficion) {
+				persona.addAficionGusta(aficionRepository.getById(idAficion));
+			}
+		}
+		personaRepository.save(persona);
+		
 		}
 		catch (Exception e) {
 			
-			returnLocation = "redirect:/errorDisplay?msg=Error indeterminado creando persona";
+			PRG.error("Error indeterminado al crear la persona"+e.getMessage());
 		}
-		return returnLocation;
+		return "redirect:/persona/r";
 		
 	}
 }

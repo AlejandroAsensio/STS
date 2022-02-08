@@ -1,10 +1,14 @@
 package org.aasensio.pap2022.entities;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Pais {
@@ -14,6 +18,9 @@ public class Pais {
 	
 	@Column(unique = true)
 	private String nombre;
+	
+	@OneToMany(mappedBy = "nace")
+	private Collection<Persona> nativos;
 
 	// ============================
 	
@@ -21,10 +28,12 @@ public class Pais {
 	
 	public Pais() {
 		this.nombre = "Atlantida";
+		this.nativos = new ArrayList<Persona>();
 	}
 
 	public Pais(String nombre) {
 		this.nombre = nombre;
+		this.nativos = new ArrayList<Persona>();
 	}
 	// =============================
 
@@ -42,6 +51,14 @@ public class Pais {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public Collection<Persona> getNativos() {
+		return nativos;
+	}
+
+	public void setNativos(Collection<Persona> nativos) {
+		this.nativos = nativos;
 	}
 	
 	

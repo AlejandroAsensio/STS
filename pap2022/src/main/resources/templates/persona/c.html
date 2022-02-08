@@ -1,3 +1,4 @@
+<div class="container">
 <h1>Nueva persona</h1>
 
 <form action="/persona/c" method="POST">
@@ -9,6 +10,28 @@
 	<label for="idPwd">Contraseña</label>
 	<input type="password" name="pwd"/>
 	
+	<br/>
+	
+	<fieldset>
+	<legend>
+		País de nacimiento
+	</legend>
+		<select name="idPaisNace">
+			<option th:each="pais:${paises}" th:text="${pais.nombre}" th:value="${pais.id}"/>
+		</select>
+	</fieldset>
+	
+	<fieldset>
+	<legend>
+		Aficiones (gusta)
+	</legend>
+		<div th:each="aficion:${aficiones}">
+			<input  th:id="|id-${aficion.id}|" type="checkbox" name="idAficion[]" th:value="${aficion.id}"/>
+			<label th:for="|id-${aficion.id}|" th:text="${aficion.nombre}"/>
+		</div>
+	</fieldset>
+	
 	<input type="submit" value="Nueva Persona"/>
 </form>
 <br/>
+</div>

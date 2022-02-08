@@ -3,6 +3,9 @@ package org.aasensio.pap2022.controller;
 import java.util.List;
 
 import org.aasensio.pap2022.entities.Pais;
+import org.aasensio.pap2022.exception.DangerException;
+import org.aasensio.pap2022.exception.InfoException;
+import org.aasensio.pap2022.exception.PRG;
 import org.aasensio.pap2022.repository.PaisRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,17 +44,18 @@ public class PaisController {
 	}
 	
 	@PostMapping("/pais/c")
-	public String cPost(@RequestParam("nombre") String nombre) {
-		String returnLocation = "";
+	public String cPost(@RequestParam("nombre") String nombre) throws DangerException, InfoException {
+		
 		try {
 		paisRepository.save(new Pais(nombre));
-		returnLocation =  "redirect:/pais/r";
+		
 		}
 		catch (Exception e) {
-			
-			returnLocation = "redirect:/errorDisplay?msg=El pais "+nombre+" ya existe";
+				PRG.error("El país "+nombre+" ya existe","/pais/c");
 		}
-		return returnLocation;
 		
+//		PRG.info(nombre +" creado correctamente","/pais/r");
+		
+		return "redirect:/pais/r";
 	}
 }
