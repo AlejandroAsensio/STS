@@ -1,0 +1,13 @@
+<div class="container">
+<h1>Editar afición</h1>
+
+<form action="/aficion/u" method="POST">
+	<label for="idNombre">Nombre</label>
+	<input type="text" name="nombre" th:value="${aficion.nombre}"/>
+	
+	<input type="hidden" name="idAficion" th:value="${aficion.id}"/>
+	
+	<input type="submit" value="Confirmar cambios"/>
+</form>
+<br/>
+</div>

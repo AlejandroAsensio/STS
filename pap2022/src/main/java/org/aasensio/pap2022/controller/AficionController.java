@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.aasensio.pap2022.entities.Aficion;
 import org.aasensio.pap2022.entities.Pais;
+import org.aasensio.pap2022.exception.DangerException;
+import org.aasensio.pap2022.exception.PRG;
 import org.aasensio.pap2022.repository.AficionRepository;
 import org.aasensio.pap2022.repository.PaisRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,5 +54,31 @@ public class AficionController {
 		}
 		return returnLocation;
 		
+	}
+	@GetMapping("/aficion/u")
+	public String u(
+			@RequestParam("idAficion") Long idAficion,
+			ModelMap m
+			) {
+		m.put("aficion", aficionRepository.getById(idAficion));
+		m.put("view", "aficion/u");
+		
+		return "_t/frame";
+	}
+	@PostMapping("/aficion/u")
+	public String uPost(
+			@RequestParam("nombre") String nombre,
+			@RequestParam("idAficion") Long idAficion
+			) throws DangerException {
+		try {
+		Aficion aficion = aficionRepository.getById(idAficion);
+		aficion.setNombre(nombre);
+		aficionRepository.save(aficion);
+		}
+		catch (Exception e) {
+			PRG.error("La afición "+nombre+" ya existe","/aficion/r");
+		}
+		
+		return "redirect:/aficion/r";
 	}
 }
