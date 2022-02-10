@@ -1,7 +1,10 @@
 package org.aasensio.pap2022.controller;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.aasensio.pap2022.entities.Aficion;
 import org.aasensio.pap2022.entities.Pais;
 import org.aasensio.pap2022.entities.Persona;
 import org.aasensio.pap2022.exception.DangerException;
@@ -10,6 +13,7 @@ import org.aasensio.pap2022.repository.AficionRepository;
 import org.aasensio.pap2022.repository.PaisRepository;
 import org.aasensio.pap2022.repository.PersonaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,12 +56,15 @@ public class PersonaController {
 	public String cPost(
 			@RequestParam("nombre") String nombre,
 			@RequestParam("pwd") String pwd,
+			@RequestParam("fNac") 
+			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+			LocalDate fNac,
 			@RequestParam("idPaisNace") Long idPaisNace,
 			@RequestParam(value="idAficion[]",required=false) List<Long> idsAficion
 			) throws DangerException {
 		
 		try {
-		Persona persona = new Persona(nombre,pwd,paisRepository.getById(idPaisNace));
+		Persona persona = new Persona(nombre,pwd,fNac,paisRepository.getById(idPaisNace));
 		if(idsAficion !=null) {
 			for(Long idAficion : idsAficion) {
 				persona.addAficionGusta(aficionRepository.getById(idAficion));
@@ -73,4 +80,54 @@ public class PersonaController {
 		return "redirect:/persona/r";
 		
 	}
+	@GetMapping("/persona/u")
+	public String u(
+			@RequestParam("idPersona") Long idPersona,
+			ModelMap m
+			) {
+		
+		m.put("persona", personaRepository.getById(idPersona));
+		m.put("paises", paisRepository.findAll());
+		m.put("aficiones", aficionRepository.findAll());
+		m.put("view", "persona/u");
+		
+		return "_t/frame";
+	}
+	
+	@PostMapping("/persona/u")
+	public String uPost(
+			@RequestParam("nombre") String nombre,
+			@RequestParam("idPaisNace") Long idPaisNace,
+			@RequestParam("idPersona") Long idPersona,
+			@RequestParam(value="idAficion[]",required=false) List<Long> idsAficion
+			) throws DangerException {
+		
+		try {
+			Persona persona = personaRepository.getById(idPersona);
+			persona.setNombre(nombre);
+			if(idPaisNace != persona.getNace().getId()) {
+				Pais nuevoPaisNacimiento = paisRepository.getById(idPaisNace);
+				persona.setNace(nuevoPaisNacimiento);
+			}
+			ArrayList<Aficion> nuevasAficiones = new ArrayList<Aficion>();
+			
+			if(idsAficion !=null) {
+				for(Long idAficion : idsAficion) {
+					nuevasAficiones.add(aficionRepository.getById(idAficion));
+				}
+			}
+			
+			persona.setAficionesGusta(nuevasAficiones);
+			
+			personaRepository.save(persona);
+			
+		}
+		catch (Exception e) {
+			
+			PRG.error("Error indeterminado al editar la persona"+e.getMessage());
+		}
+		return "redirect:/persona/r";
+		
+	}
+	
 }

@@ -1,5 +1,7 @@
 package org.aasensio.pap2022.entities;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -24,6 +26,7 @@ public class Persona {
 	
 	private String nombre;
 	private String pwd;
+	private LocalDate fNac;
 	
 	@ManyToOne
 	private Pais nace;
@@ -40,9 +43,10 @@ public class Persona {
 		this.aficionesGusta = new ArrayList<Aficion>();
 	}
 
-	public Persona(String nombre,String pwd,Pais nace) {
+	public Persona(String nombre,String pwd, LocalDate fNac, Pais nace) {
 		this.nombre = nombre;
 		this.pwd = encriptar(pwd);
+		this.fNac = fNac;
 		this.nace = nace;
 		this.nace.getNativos().add(this);
 		this.aficionesGusta = new ArrayList<Aficion>();
@@ -74,6 +78,14 @@ public class Persona {
 	}
 	
 	
+	public LocalDate getfNac() {
+		return fNac;
+	}
+
+	public void setfNac(LocalDate fNac) {
+		this.fNac = fNac;
+	}
+
 	public Pais getNace() {
 		return nace;
 	}
@@ -104,5 +116,16 @@ public class Persona {
 
 	private String encriptar(String pwd) {
 		return (new BCryptPasswordEncoder()).encode(pwd);
+	}
+	public Integer getEdad() {
+		int sol = 0;
+		LocalDate fNac = this.getfNac();
+		if(fNac!=null) {
+		LocalDate hoy = LocalDate.now();
+		
+		Period intervalo = Period.between(fNac, hoy);
+		sol=intervalo.getYears();
+		}
+		return sol;
 	}
 }
