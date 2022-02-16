@@ -14,10 +14,29 @@ public class Usuario {
 	
 	@Column(unique = true)
 	private String dni;
-	private String password;
 	private String nombre;
 	private String apellido;
+	private String password;
 	
+	
+	// =====================
+	
+	public Usuario() {
+	
+	}
+	
+	
+	
+	public Usuario(String dni, String nombre, String apellido, String password) {
+		super();
+		this.dni = dni;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.password = password;
+	}
+
+
+
 	// =====================
 	public Long getId() {
 		return id;
