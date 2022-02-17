@@ -17,17 +17,23 @@
 		</th>
 	</tr>
 	
-	<!--<tr th:each="aficion:${aficiones}">
-		<td th:text="${aficion.nombre}"/>
-		<td>
-			<form action="/aficion/u">
+	<tr th:each="asignatura:${asignaturas}">
+		<td th:text="${asignatura.nombre}"/>
+		<td class="row">
+			<form action="/asignatura/u">
 				<button>
 					<img src="/img/lapiz.png" width="20" height="20"/>
 				</button>
-				<input type="hidden" name="idAficion" th:value="${aficion.id}"/>
+				<input type="hidden" name="idAsignatura" th:value="${asignatura.id}"/>
+			</form>
+			<form action="/asignatura/d">
+				<button>
+					<img src="/img/basura.png" width="20" height="20"/>
+				</button>
+				<input type="hidden" name="idAsignatura" th:value="${asignatura.id}"/>
 			</form>
 		</td>
-	</tr>-->
+	</tr>
 </table>
 
 
