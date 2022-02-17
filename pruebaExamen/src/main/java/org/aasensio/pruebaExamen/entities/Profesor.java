@@ -15,10 +15,11 @@ public class Profesor extends Usuario{
 	
 	public Profesor(String dni,String nombre,String apellido, String password) {
 		super(dni,nombre,apellido,password);
+		this.asignaturas = new ArrayList<Asignatura>();
 		
 	}
 	public Profesor() {
-		
+		this.asignaturas = new ArrayList<Asignatura>();
 	}
 	// ====================================
 	public Collection<Asignatura> getAsignaturas() {
