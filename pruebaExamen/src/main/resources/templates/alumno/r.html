@@ -1,0 +1,65 @@
+<div class="container">
+<h1>Profesores</h1>
+
+<form action="/alumno/c">
+	<input type="submit" value="Nuevo Alumno"/>
+</form>
+<br/>
+
+<form action="/">
+	<input type="submit" value="Volver"/>
+</form>
+
+<h3>Lista de Alumnos</h3>
+
+<table class="table table-striped">
+	<tr>
+		<th>
+			DNI
+		</th>
+		<th>
+			Nombre
+		</th>
+		<th>
+			Apellido
+		</th>
+		<th>
+			Asignaturas
+		</th>
+		<th>
+			Acciones
+		</th>
+	</tr>
+	
+	<tr th:each="alumno:${alumnos}">
+		<td th:text="${alumno.dni}"/>
+		<td th:text="${alumno.nombre}"/>
+		<td th:text="${alumno.apellido}"/>
+		<td>
+			<th:block th:each="asignatura:${alumno.asignaturas}" th:text="|${asignatura.nombre} |"/>
+		</td>
+		<td class="row">
+			<form action="/alumno/u">
+				<button>
+					<img src="/img/lapiz.png" width="20" height="20"/>
+				</button>
+				<input type="hidden" name="idAlumno" th:value="${alumno.id}"/>
+			</form>
+			<form action="/alumno/d">
+				<button>
+					<img src="/img/basura.png" width="20" height="20"/>
+				</button>
+				<input type="hidden" name="idAlumno" th:value="${alumno.id}"/>
+			</form>
+		</td>
+	</tr>
+	
+	
+</table>
+
+
+
+</h2>
+
+<br/>
+</div>

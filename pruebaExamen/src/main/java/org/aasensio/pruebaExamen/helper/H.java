@@ -1,5 +1,9 @@
 package org.aasensio.pruebaExamen.helper;
 
+import javax.servlet.http.HttpSession;
+
+import org.aasensio.pruebaExamen.exception.DangerException;
+
 public class H {
 	/**
 	 * 
@@ -7,7 +11,7 @@ public class H {
 	 * @param 	s   				la sesión activa
 	 * @throws 	DangerException		si el rol no coincide con el del usuario activo
 	 */
-//	public static void isRolOK(String rolExigido, HttpSession s) throws DangerException {
+	public static void isRolOK(String rolExigido, HttpSession s) throws DangerException {
 //		String rolActual = "anon";
 //		if (s.getAttribute("user") != null) {
 //			rolActual = ((Persona)s.getAttribute("user")).getRol().getNombre()!="admin" ? "auth" : "admin";
@@ -24,6 +28,7 @@ public class H {
 //			throw new DangerException("Rol inadecuado");
 //		}
 
+}
 }
 
 

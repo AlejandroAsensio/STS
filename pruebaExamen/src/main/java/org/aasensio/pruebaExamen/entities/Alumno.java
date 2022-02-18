@@ -16,8 +16,8 @@ public class Alumno extends Usuario{
 	private Collection<Asignatura> asignaturas;
 	
 	// ==========================
-	public Alumno(String dni,String nombre,String apellido, String password) {
-		super(dni,nombre,apellido,password);
+	public Alumno(String dni,String password,String nombre,String apellido	) {
+		super(dni,password,nombre,apellido);
 	this.notas = new ArrayList<Nota>();
 	this.asignaturas= new ArrayList<Asignatura>();
 	}

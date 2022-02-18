@@ -39,12 +39,13 @@ public class HomeController {
 		return "/_t/frame";
 
 	}
-//	
-//	@GetMapping("/login")
-//	public String login(ModelMap m) {
-//		m.put("view", "home/login");
-//		return "/_t/frame";
-//	}
+	
+	@GetMapping("/login")
+	public String login(ModelMap m,
+			HttpSession s) {
+		m.put("view", "home/login");
+		return "/_t/frame";
+	}
 //	
 //	@PostMapping("/login")
 //	public String loginPost(
@@ -76,7 +77,7 @@ public class HomeController {
 //		s.invalidate();
 //		return "redirect:/";
 //	}
-	
+//	
 	@GetMapping("/")
 	public String index(ModelMap m) {
 		m.put("view", "home/index");

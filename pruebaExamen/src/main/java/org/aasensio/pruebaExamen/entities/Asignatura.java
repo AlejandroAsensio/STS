@@ -3,6 +3,7 @@ package org.aasensio.pruebaExamen.entities;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +24,7 @@ public class Asignatura {
 	@OneToMany(mappedBy = "asignatura")
 	private Collection<Nota> notas;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Profesor profesor;
 	
 	@ManyToMany(mappedBy = "asignaturas")
@@ -73,10 +74,9 @@ public class Asignatura {
 
 	public void setProfesor(Profesor profesor) {
 		this.profesor = profesor;
+		
 	}
-	// =====================
-
-
+	
 
 	public Collection<Alumno> getAlumnos() {
 		return alumnos;
@@ -88,7 +88,19 @@ public class Asignatura {
 		this.alumnos = alumnos;
 	}
 
+// =====================
+	public void addProfesor(Profesor profesor) {
+		this.profesor = profesor;
+		profesor.getAsignaturas().add(this);
+	}
 
+
+
+	public void addAlumno(Alumno alumno) {
+		this.alumnos.add(alumno);
+		alumno.getAsignaturas().add(this);
+		
+	}
 
 	
 }

@@ -1,0 +1,32 @@
+<div class="container">
+<h1>Nuevo Profesor</h1>
+
+<form action="/profesor/c" method="POST">
+	<label for="idDni">DNI</label>
+	<input type="text" id="idDni" name="dni"/>
+	<br/>
+	
+	<label for="idPassword">Password</label>
+	<input type="password" id="idPassword" name="password"/>
+	<br/>
+	
+	<label for="idNombre">Nombre</label>
+	<input type="text" id="idNombre" name="nombre"/>
+	<br/>
+	
+	<label for="idApellido">Apellido</label>
+	<input type="text" id="idApellido" name="apellido"/>
+	<br/>
+	
+	<th:block th:each="asignatura:${asignaturas}">
+	
+		<th:block th:if="${asignatura.profesor==null}">
+			<input th:id="|id-as${asignatura.id}|" type="checkbox" name="idAsignatura[]" th:value="${asignatura.id}"/> 
+			<label th:for="|id-as${asignatura.id}|" th:text=${asignatura.nombre}/>
+		</th:block>
+	</th:block>
+	
+	<input type="submit" value="Nuevo Profesor"/>
+</form>
+<br/>
+</div>
