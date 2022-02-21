@@ -1,0 +1,33 @@
+<div class="container">
+	<div class="row">
+		<form action="/localidad/c">
+			<input type="submit" value="Nueva Localidad" />
+		</form>
+
+		<form action="/">
+			<input type="submit" value="Volver" />
+		</form>
+	</div>
+
+	<h3>Lista de localidades</h3>
+
+	<table class="table table-striped">
+		<tr>
+			<th>
+				Nombre
+			</th>
+			<th>
+				Provincia
+			</th>
+			
+		</tr>
+
+		<tr th:each="localidad:${localidades} ">
+			<td th:text="${localidad.nombre}" />
+			<td th:text="${localidad.provincia}"/>
+		</tr>
+
+	</table>
+	<br />
+
+	</div>

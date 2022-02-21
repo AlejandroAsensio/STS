@@ -1,0 +1,33 @@
+<div class="container">
+	<div class="row">
+		<form action="/cliente/c">
+			<input type="submit" value="Nuevo cliente" />
+		</form>
+
+		<form action="/">
+			<input type="submit" value="Volver" />
+		</form>
+	</div>
+
+	<h3>Lista de clientes</h3>
+
+	<table class="table table-striped">
+		<tr>
+			<th>
+				Nombre
+			</th>
+			<th>
+				¿Madrileño?
+			</th>
+			
+		</tr>
+
+		<tr th:each="cliente:${clientes} ">
+			<td th:text="${cliente.nombre}" />
+			<td th:text=" ${cliente.localidad.provincia=='Madrid'} ? 'Sí' : 'No'"/>
+		</tr>
+
+	</table>
+	<br />
+
+	</div>
