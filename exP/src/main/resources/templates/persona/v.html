@@ -1,0 +1,35 @@
+<div class="container">
+<h1>Vincular personas y coches</h1>
+
+<form action="/persona/v" method="POST">
+
+	<label for="id-per">Persona</label>
+	
+	<select id="id-per" name="idPersona">
+		<option th:each="persona:${personas}" th:value="${persona.id}" th:text="${persona.nombre}"/>
+	</select>
+	
+	<fieldset>
+		<legend>Coches Personales</legend>
+		
+		<th:block th:each="coche:${coches}">
+				<input type="checkbox" name="idsCochesPersonales[]" th:value="${coche.id}" th:id="|idp-${coche.id}|"/>
+				<label th:for="|idp-${coche.id}|" th:text="|${coche.matricula} (${coche.marca} - ${coche.modelo})|"/>
+		</th:block>
+		
+	</fieldset>
+	
+		<fieldset>
+		<legend>Coches de Empresa</legend>
+		
+		<th:block th:each="coche:${coches}">
+				<input type="checkbox" name="idsCochesEmpresariales[]" th:value="${coche.id}" th:id="|ide-${coche.id}|"/>
+				<label th:for="|ide-${coche.id}|" th:text="|${coche.matricula} (${coche.marca} - ${coche.modelo})|"/>
+		</th:block>
+		
+	</fieldset>
+	
+	<input type="submit" value="Nueva Vinculación"/>
+</form>
+<br/>
+</div>

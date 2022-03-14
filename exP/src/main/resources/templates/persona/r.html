@@ -1,0 +1,49 @@
+<div class="container">
+<h1>Personas</h1>
+
+<form action="/persona/c">
+	<input type="submit" value="Nueva Persona"/>
+</form>
+
+<form action="/persona/v">
+	<input type="submit" value="Vincular"/>
+</form>
+
+<form action="/">
+	<input type="submit" value="Volver"/>
+</form>
+<br/>
+<h3>Lista de personas</h3>
+
+<table class="table table-striped">
+	<tr>
+		<th>
+			Nombre
+		</th>
+		<th>
+			Coches Personales
+		</th>
+		<th>
+			Coches de Empresa
+		</th>
+		
+		
+	</tr>
+	
+	<tr th:each="persona:${personas}">
+		<td th:text="${persona.nombre}"/>
+		<td>
+			<th:block th:each="cocheP:${persona.personales}" th:text="|${cocheP.matricula} (${cocheP.marca} - ${cocheP.modelo}) |"/>
+		</td>
+		<td>
+			<th:block th:each="cocheE:${persona.empresariales}" th:text="|${cocheE.matricula} (${cocheE.marca} - ${cocheE.modelo}) |"/>
+		</td>
+	</tr>
+</table>
+
+
+
+</h2>
+
+<br/>
+</div>

@@ -1,0 +1,40 @@
+<div class="container">
+<h1>Coches</h1>
+
+<form action="/coche/c">
+	<input type="submit" value="Nuevo Coche"/>
+</form>
+
+<form action="/">
+	<input type="submit" value="Volver"/>
+</form>
+<br/>
+<h3>Lista de coches</h3>
+
+<table class="table table-striped">
+	<tr>
+		<th>
+			Matrícula
+		</th>
+		<th>
+			Marca
+		</th>
+		<th>
+			Modelo
+		</th>
+		
+	</tr>
+	
+	<tr th:each="coche:${coches}">
+		<td th:text="${coche.matricula}"/>
+		<td th:text="${coche.marca}"/>
+		<td th:text="${coche.modelo}"/>
+	</tr>
+</table>
+
+
+
+</h2>
+
+<br/>
+</div>
